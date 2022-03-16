@@ -7,4 +7,4 @@
 </p>
  
  
-Krajowy Serwer Transportu. Reaktywacja gamemode KSTRP.pl próbujący oddać niegdysiejszy klimat edycji serwera z San Andreas Multiplayer. Autor serwera to Nike, aktualnie brak zgody na posługiwanie się logiem oraz nazwą; obie rzeczy prawdopodobnie niezarejestrowane w urzędzie.
+Krajowy Serwer Transportu. Reaktywacja gamemode KSTRP.pl próbująca oddać niegdysiejszy klimat edycji serwera z San Andreas Multiplayer. Autor serwera to Nike, aktualnie brak zgody na posługiwanie się logiem oraz nazwą; obie rzeczy prawdopodobnie niezarejestrowane w urzędzie.
