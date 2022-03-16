@@ -1,0 +1,7 @@
+<meta>
+	<info author="Pawcio#4564" description="Krajowy Serwer Transportu - Panel logowania"/>
+
+	<script src="sourceC.luac" type="client" cache="false"/>
+
+	<file src="files/logo.png"/>
+</meta>
