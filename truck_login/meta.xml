@@ -4,4 +4,5 @@
 	<script src="sourceC.luac" type="client" cache="false"/>
 
 	<file src="files/logo.png"/>
+	<file src="files/song.mp3"/>
 </meta>

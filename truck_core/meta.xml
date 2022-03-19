@@ -1,0 +1,7 @@
+<meta>
+	<info author="Pawcio#4564" description="Krajowy Serwer Transportu - Core"/>
+
+	<script src="fontC.luac" type="client" cache="false"/>
+
+	<file src="files/font.otf"/>
+</meta>
