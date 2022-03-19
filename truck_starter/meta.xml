@@ -1,0 +1,5 @@
+<meta>
+    <info author="Pawcio#4564" description="Starter zarządzający zasobami"/>
+
+    <script src="sourceS.lua" type="server"/>
+</meta>

@@ -1,0 +1,12 @@
+<meta>
+    <info author="Pawcio#4564"/>
+
+    <script src="config.lua" type="server"/>
+    <script src="sourceS.lua" type="server"/>
+
+    <export function="getDatabaseConnection" type="server"/>
+    <export function="dbQueryExtended" type="server"/>
+    <export function="dbExecExtended" type="server"/>
+
+    <min_mta_version server="1.5.2"/>
+</meta>

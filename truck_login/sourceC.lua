@@ -11,7 +11,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
     	setCameraMatrix(-883.42181, 1405.34521, 16.83056, -873.87213, 1395.98499, 13.39513)
     	setMusicEnabled(true)
     	setCutsceneEnabled(true)
-    	setTime(04, 0)
+    	setTime(4, 0)
 
 		setPanelVisibleTab("intro")
 	end
@@ -91,7 +91,7 @@ function setPanelVisibleTab(tab)
 
 			local infoText = "Witaj na Krajowym Serwerze Transportu!\nŚwieża reaktywacja w nowoczesnej odsłonie!\n\nNaciśnij jeden z dwóch przycisków,\naby rozpocząć nową przygodę truckera :)\n\n★ ★ ★ ★ ★"
 
-			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 200, infoText, false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 200, infoText, false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
 
 			dgsElements.loginButton = dgs:dgsCreateButton(93, 240, 200, 50, "Logowanie", false, dgsElements.rectangleImage, _, _, _, _, _, _, _, tocolor(1, 111, 170), tocolor(0, 55, 120))
@@ -116,33 +116,43 @@ function setPanelVisibleTab(tab)
 
 			local infoText = "Witaj w zakładce rejestracji!\n\nWpisz login oraz hasło, aby się zarejestrować.\nE-mail możesz wpisać w ramach weryfikacji\ngdybyś zapomniał hasła do logowania."
 
-			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
 
-			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 190, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
+			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 200, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
 			addEventHandler("onDgsMouseClick", dgsElements.returnButton, function(button, state)
 				if button == "left" and state == "up" then
 					setPanelVisibleTab("intro")
 				end
 			end, false)
 
-			dgsElements.loginLabel = dgs:dgsCreateLabel(95, 180, 200, 1, "Login", false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.loginLabel = dgs:dgsCreateLabel(95, 180, 200, 1, "Login", false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgsElements.loginEdit = dgs:dgsCreateEdit(108, 200, 170, 30, _, false, dgsElements.rectangleImage, _, _, _, _, tocolor(255, 255, 255, 90))
 			dgs:dgsEditSetHorizontalAlign(dgsElements.loginEdit, "center")
 
-			dgsElements.passwordLabel = dgs:dgsCreateLabel(95, 240, 200, 1, "Hasło", false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.passwordLabel = dgs:dgsCreateLabel(95, 240, 200, 1, "Hasło", false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgsElements.passwordEdit = dgs:dgsCreateEdit(108, 260, 170, 30, _, false, dgsElements.rectangleImage, _, _, _, _, tocolor(255, 255, 255, 90))
 			dgs:dgsEditSetHorizontalAlign(dgsElements.passwordEdit, "center")
 			dgs:dgsEditSetMasked(dgsElements.passwordEdit, true)
 
-			dgsElements.emailLabel = dgs:dgsCreateLabel(95, 300, 200, 1, "E-mail (opcjonalnie)", false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.emailLabel = dgs:dgsCreateLabel(95, 300, 200, 1, "E-mail (opcjonalnie)", false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgsElements.emailEdit = dgs:dgsCreateEdit(108, 320, 170, 30, _, false, dgsElements.rectangleImage, _, _, _, _, tocolor(255, 255, 255, 90))
 			dgs:dgsEditSetHorizontalAlign(dgsElements.emailEdit, "center")
 
 			dgsElements.registerButton = dgs:dgsCreateButton(93, 375, 200, 40, "Zarejestruj", false, dgsElements.rectangleImage)
 			addEventHandler("onDgsMouseClick", dgsElements.registerButton, function(button, state)
 				if button == "left" and state == "up" then
-					print("Rejestrowanie")
+					local loginFromEdit = dgs:dgsGetText(dgsElements.loginEdit)
+					local passwordFromEdit = dgs:dgsGetText(dgsElements.passwordEdit)
+					local emailFromEdit = dgs:dgsGetText(dgsElements.emailEdit)
+
+					if string.len(loginFromEdit) == 0 or string.find(loginFromEdit, " ") ~= nil then return end -- dodać infobox
+					if string.len(passwordFromEdit) == 0 or string.find(passwordFromEdit, " ") ~= nil then return end -- dodać infobox
+
+					if string.len(emailFromEdit) == 0 or string.find(emailFromEdit, " ") ~= nil then return end
+					if exports.truck_util:validEmail(emailFromEdit) ~= true then return end -- dodać infobox
+
+					triggerServerEvent("KSTRP:TryToRegisterAccount", localPlayer, loginFromEdit, passwordFromEdit, emailFromEdit)
 				end
 			end, false)
 		elseif tab == "login" then
@@ -154,21 +164,21 @@ function setPanelVisibleTab(tab)
 
 			local infoText = "Witaj w zakładce logowania!\n\nWpisz login oraz hasło, aby się zalogować.\nMamy nadzieję, że będziesz się super bawił,\ngrając na naszym serwerze :)"
 
-			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
 
-			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 190, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
+			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 200, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
 			addEventHandler("onDgsMouseClick", dgsElements.returnButton, function(button, state)
 				if button == "left" and state == "up" then
 					setPanelVisibleTab("intro")
 				end
 			end, false)
 
-			dgsElements.loginLabel = dgs:dgsCreateLabel(95, 180, 200, 1, "Login", false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.loginLabel = dgs:dgsCreateLabel(95, 180, 200, 1, "Login", false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgsElements.loginEdit = dgs:dgsCreateEdit(108, 200, 170, 30, _, false, dgsElements.rectangleImage, _, _, _, _, tocolor(255, 255, 255, 90))
 			dgs:dgsEditSetHorizontalAlign(dgsElements.loginEdit, "center")
 
-			dgsElements.passwordLabel = dgs:dgsCreateLabel(95, 240, 200, 1, "Hasło", false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
+			dgsElements.passwordLabel = dgs:dgsCreateLabel(95, 240, 200, 1, "Hasło", false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgsElements.passwordEdit = dgs:dgsCreateEdit(108, 260, 170, 30, _, false, dgsElements.rectangleImage, _, _, _, _, tocolor(255, 255, 255, 90))
 			dgs:dgsEditSetHorizontalAlign(dgsElements.passwordEdit, "center")
 			dgs:dgsEditSetMasked(dgsElements.passwordEdit, true)
