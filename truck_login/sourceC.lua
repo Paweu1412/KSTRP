@@ -7,7 +7,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 		showCursor(true)
 		showChat(false)
 
-		fadeCamera(true, 2)
+		fadeCamera(true, 2.5)
     	setCameraMatrix(-883.42181, 1405.34521, 16.83056, -873.87213, 1395.98499, 13.39513)
     	setMusicEnabled(true)
     	setCutsceneEnabled(true)
