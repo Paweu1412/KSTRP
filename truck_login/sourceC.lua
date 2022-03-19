@@ -83,7 +83,7 @@ function setPanelVisibleTab(tab)
 		end
 
 		if tab == "intro" then
-			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 180))
+			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 190))
 			if not dgsElements.roundedRectangleRender then return end
 
 			dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 382)/2, (screenH - 451)/2, 382, 451, dgsElements.roundedRectangleRender, false)
@@ -108,7 +108,7 @@ function setPanelVisibleTab(tab)
 				end
 			end, false)
 		elseif tab == "register" then
-			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 180))
+			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 200))
 			if not dgsElements.roundedRectangleRender then return end
 
 			dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 382)/2, (screenH - 451)/2, 382, 451, dgsElements.roundedRectangleRender, false)
@@ -119,7 +119,7 @@ function setPanelVisibleTab(tab)
 			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
 
-			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 200, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 180), tocolor(1, 111, 170), tocolor(0, 55, 120))
+			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 190, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
 			addEventHandler("onDgsMouseClick", dgsElements.returnButton, function(button, state)
 				if button == "left" and state == "up" then
 					setPanelVisibleTab("intro")
@@ -146,7 +146,7 @@ function setPanelVisibleTab(tab)
 				end
 			end, false)
 		elseif tab == "login" then
-			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 180))
+			dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(20, false, tocolor(0, 0, 0, 190))
 			if not dgsElements.roundedRectangleRender then return end
 
 			dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 382)/2, (screenH - 451)/2, 382, 451, dgsElements.roundedRectangleRender, false)
@@ -157,7 +157,7 @@ function setPanelVisibleTab(tab)
 			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1.3, 1.3, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
 
-			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 200, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 180), tocolor(1, 111, 170), tocolor(0, 55, 120))
+			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 190, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
 			addEventHandler("onDgsMouseClick", dgsElements.returnButton, function(button, state)
 				if button == "left" and state == "up" then
 					setPanelVisibleTab("intro")
