@@ -27,24 +27,25 @@ function generateString ( len )
 end
 
 function validEmail(str)
-  if str == nil or str:len() == 0 then return nil end
+  if str == nil then return nil end
   if (type(str) ~= 'string') then
     error("Expected string")
     return nil
   end
   local lastAt = str:find("[^%@]+$")
+  if not lastAt then
+    return nil, "Nothing after @"
+  end
+
   local localPart = str:sub(1, (lastAt - 2)) -- Returns the substring before '@' symbol
   local domainPart = str:sub(lastAt, #str) -- Returns the substring after '@' symbol
   -- we werent able to split the email properly
-  if localPart == nil then
+  if not localPart == nil then
     return nil, "Local name is invalid"
   end
 
-  if domainPart == nil or not domainPart:find("%.") then
+  if domainPart == nil then
     return nil, "Domain is invalid"
-  end
-  if string.sub(domainPart, 1, 1) == "." then
-    return nil, "First character in domain cannot be a dot"
   end
   -- local part is maxed at 64 characters
   if #localPart > 64 then
@@ -67,16 +68,9 @@ function validEmail(str)
   if localPart:find("%@+") and quotes == nil then
     return nil, "Invalid @ symbol usage in local part"
   end
-  -- no dot found in domain name
-  if not domainPart:find("%.") then
-    return nil, "No TLD found in domain"
-  end
   -- only 1 period in succession allowed
   if domainPart:find("%.%.") then
     return nil, "Too many periods in domain"
-  end
-  if localPart:find("%.%.") then
-    return nil, "Too many periods in local part"
   end
   -- just a general match
   if not str:match('[%w]*[%p]*%@+[%w]*[%.]?[%w]*') then

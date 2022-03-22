@@ -114,7 +114,7 @@ function setPanelVisibleTab(tab)
 			dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 382)/2, (screenH - 451)/2, 382, 451, dgsElements.roundedRectangleRender, false)
 			dgsElements.logoImage = dgs:dgsCreateImage(-30, -45, 461, 78, "files/logo.png", false, dgsElements.rectangleImage)
 
-			local infoText = "Witaj w zakładce rejestracji!\n\nWpisz login oraz hasło, aby się zarejestrować.\nE-mail możesz wpisać w ramach weryfikacji\ngdybyś zapomniał hasła do logowania."
+			local infoText = "Witaj w zakładce rejestracji!\n\nWpisz login oraz hasło, aby się zarejestrować.\nE-mail możesz wpisać w ramach weryfikacji\ngdybyś zapomniał danych do logowania."
 
 			dgsElements.infoLabel = dgs:dgsCreateLabel(95, 50, 200, 10, infoText, false, dgsElements.rectangleImage, _, 1, 1, _, _, _, "center")
 			dgs:dgsSetFont(dgsElements.infoLabel, dgs:dgsGetSystemFont() or "default-bold")
@@ -146,11 +146,32 @@ function setPanelVisibleTab(tab)
 					local passwordFromEdit = dgs:dgsGetText(dgsElements.passwordEdit)
 					local emailFromEdit = dgs:dgsGetText(dgsElements.emailEdit)
 
-					if string.len(loginFromEdit) == 0 or string.find(loginFromEdit, " ") ~= nil then return end -- dodać infobox
-					if string.len(passwordFromEdit) == 0 or string.find(passwordFromEdit, " ") ~= nil then return end -- dodać infobox
+					if string.len(loginFromEdit) == 0 or string.find(loginFromEdit, " ") ~= nil then 
+						exports.truck_infobox:showInfo("Pole loginu nie może pozostać puste!", "warning")
+						return
+					end
 
-					if string.len(emailFromEdit) == 0 or string.find(emailFromEdit, " ") ~= nil then return end
-					if exports.truck_util:validEmail(emailFromEdit) ~= true then return end -- dodać infobox
+					if string.len(loginFromEdit) < 3 then
+						exports.truck_infobox:showInfo("Login musi zawierać co najmniej 3 znaki.", "warning")
+						return
+					end
+
+					if string.len(passwordFromEdit) == 0 or string.find(passwordFromEdit, " ") ~= nil then 
+						exports.truck_infobox:showInfo("Pole hasła nie może pozostać puste!", "warning")
+						return
+					end
+
+					if string.len(passwordFromEdit) < 5 then
+						exports.truck_infobox:showInfo("Hasło musi zawierać co najmniej 5 znaków.", "warning")
+						return
+					end
+
+					if string.len(emailFromEdit) ~= 0 then
+						if exports.truck_util:validEmail(emailFromEdit) ~= true then 
+							exports.truck_infobox:showInfo("Niepoprawny adres E-mail!", "warning")
+							return
+						end
+					end
 
 					triggerServerEvent("KSTRP:TryToRegisterAccount", localPlayer, loginFromEdit, passwordFromEdit, emailFromEdit)
 				end
@@ -186,9 +207,25 @@ function setPanelVisibleTab(tab)
 			dgsElements.loginButton = dgs:dgsCreateButton(93, 335, 200, 40, "Zaloguj", false, dgsElements.rectangleImage)
 			addEventHandler("onDgsMouseClick", dgsElements.loginButton, function(button, state)
 				if button == "left" and state == "up" then
-					print("Logowanie")
+					local loginFromEdit = dgs:dgsGetText(dgsElements.loginEdit)
+					local passwordFromEdit = dgs:dgsGetText(dgsElements.passwordEdit)
+
+					if string.len(loginFromEdit) == 0 or string.find(loginFromEdit, " ") ~= nil then 
+						exports.truck_infobox:showInfo("Pole loginu nie może pozostać puste!", "warning")
+						return
+					end
+
+					if string.len(passwordFromEdit) == 0 or string.find(passwordFromEdit, " ") ~= nil then 
+						exports.truck_infobox:showInfo("Pole hasła nie może pozostać puste!", "warning")
+						return
+					end
+
+					triggerServerEvent("KSTRP:TryToLogin", localPlayer, loginFromEdit, passwordFromEdit)
 				end
 			end, false)
 		end
 	end
 end
+
+addEvent("KSTRP:SetPanelVisibleTab", true)
+addEventHandler("KSTRP:SetPanelVisibleTab", localPlayer, setPanelVisibleTab)
