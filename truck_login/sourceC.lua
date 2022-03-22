@@ -229,3 +229,29 @@ end
 
 addEvent("KSTRP:SetPanelVisibleTab", true)
 addEventHandler("KSTRP:SetPanelVisibleTab", localPlayer, setPanelVisibleTab)
+
+addEvent("KSTRP:HideLoginGUI", true)
+addEventHandler("KSTRP:HideLoginGUI", localPlayer, function()
+	if not dgsElements.rectangleImage then return end
+	if not dgsElements.returnButton then return end
+
+	dgs:dgsAlphaTo(dgsElements.returnButton, 0, "InQuad", 1000)
+	dgs:dgsAlphaTo(dgsElements.rectangleImage, 0, "InQuad", 1000)
+
+	setTimer(function()
+		destroyElement(dgsElements.returnButton)
+		destroyElement(dgsElements.rectangleImage)
+
+		fadeCamera(true, 2)
+		setCameraTarget(localPlayer)
+		setElementPosition(localPlayer, 1624.58899, 1834.37170, 10.82031)
+
+		setPlayerHudComponentVisible("all", true)
+		setCutsceneEnabled(false)
+		showChat(true)
+		showCursor(false)
+		setMusicEnabled(false)
+
+		exports.truck_infobox:showInfo("Zostałeś pomyślnie zalogowany.", "info")
+	end, 1000, 1)
+end)

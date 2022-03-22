@@ -32,8 +32,10 @@ addEventHandler("KSTRP:TryToLogin", root, function(login, password)
 		if accountData.uid ~= nil then
 			local passwordFromDatabase = accountData.password
 			if passwordVerify(password, passwordFromDatabase) then
-				exports.truck_infobox:showInfo(client, "Zostałeś pomyślnie zalogowany.", "info")
-				-- dalej
+				if triggerClientEvent(client, "KSTRP:HideLoginGUI", client) then
+                	setElementModel(client, accountData.skin)
+                    setPlayerName(client, accountData.login)
+			    end
 			else
 				exports.truck_infobox:showInfo(client, "Podane hasło jest nieprawidłowe.", "error")
 			end
