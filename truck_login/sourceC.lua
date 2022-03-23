@@ -245,6 +245,7 @@ addEventHandler("KSTRP:HideLoginGUI", localPlayer, function()
 		fadeCamera(true, 2)
 		setCameraTarget(localPlayer)
 		setElementPosition(localPlayer, 1624.58899, 1834.37170, 10.82031)
+		setElementFrozen(localPlayer, false)
 
 		setPlayerHudComponentVisible("all", true)
 		setCutsceneEnabled(false)
