@@ -153,6 +153,11 @@ function setPanelVisibleTab(tab)
 						return
 					end
 
+					if string.len(loginFromEdit) > 8 then 
+						exports.truck_infobox:showInfo("Login może zawierać co najwyżej 8 znaków", "warning")
+						return
+					end
+
 					if string.len(loginFromEdit) < 3 then
 						exports.truck_infobox:showInfo("Login musi zawierać co najmniej 3 znaki.", "warning")
 						return
