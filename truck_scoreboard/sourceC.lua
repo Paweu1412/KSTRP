@@ -46,8 +46,8 @@ addEventHandler("KSTRP:ToggleScoreboard", root, function(data)
 		for indexPlayer, playerData in pairs(data) do
 			dgs:dgsCreateLabel(-70, 70+labelsOffsetY, 200, 10, currentID, false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
 			dgs:dgsCreateLabel(5, 70+labelsOffsetY, 200, 10, getPlayerName(indexPlayer), false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
-			dgs:dgsCreateLabel(105, 70+labelsOffsetY, 200, 10, playerData["plr:score"] or "N/A", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
-			dgs:dgsCreateLabel(200, 70+labelsOffsetY, 200, 10, playerData["role"] or "N/A", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+			dgs:dgsCreateLabel(105, 70+labelsOffsetY, 200, 10, playerData["plr:score"] or "Brak", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+			dgs:dgsCreateLabel(200, 70+labelsOffsetY, 200, 10, playerData["role"] or "Brak", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
 		
 			if currentID == 35 then return end
 

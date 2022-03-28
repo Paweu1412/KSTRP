@@ -9,5 +9,5 @@ addEventHandler("KSTRP:LoginSuccessful", root, function()
 				triggerClientEvent(player, "KSTRP:ToggleScoreboard", player, allPlayersData)
 			end
 		end)
-	end, 1000, 1, source)
+	end, 400, 1, source)
 end)
