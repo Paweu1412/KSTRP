@@ -1,5 +1,7 @@
 local screenW, screenH = guiGetScreenSize()
 
+local loggedIn = false
+
 addEventHandler("onClientResourceStart", resourceRoot, function()
 	if localPlayer then
 		setPlayerHudComponentVisible("all", false)
@@ -191,6 +193,8 @@ function setPanelVisibleTab(tab)
 			dgsElements.returnButton = dgs:dgsCreateButton((screenW-195)/2, (screenH+449)/2, 200, 30, "Powrót", false, _, _, _, _, _, _, _, tocolor(0, 0, 0, 190), tocolor(1, 111, 170), tocolor(0, 55, 120))
 			addEventHandler("onDgsMouseClick", dgsElements.returnButton, function(button, state)
 				if button == "left" and state == "up" then
+					if loggedIn == true then return end
+
 					setPanelVisibleTab("intro")
 				end
 			end, false)
@@ -235,8 +239,10 @@ addEventHandler("KSTRP:HideLoginGUI", localPlayer, function()
 	if not dgsElements.rectangleImage then return end
 	if not dgsElements.returnButton then return end
 
-	dgs:dgsAlphaTo(dgsElements.returnButton, 0, "InQuad", 1000)
-	dgs:dgsAlphaTo(dgsElements.rectangleImage, 0, "InQuad", 1000)
+	loggedIn = true
+
+	dgs:dgsAlphaTo(dgsElements.returnButton, 0, "InQuad", 400)
+	dgs:dgsAlphaTo(dgsElements.rectangleImage, 0, "InQuad", 400)
 
 	setTimer(function()
 		destroyElement(dgsElements.returnButton)
@@ -251,7 +257,8 @@ addEventHandler("KSTRP:HideLoginGUI", localPlayer, function()
 		showChat(true)
 		showCursor(false)
 		setMusicEnabled(false)
+		setElementFrozen(localPlayer, false)
 
-		exports.truck_infobox:showInfo("Zostałeś pomyślnie zalogowany.", "info")
-	end, 1000, 1)
+		exports.truck_infobox:showInfo("Zostałeś pomyślnie zalogowany na konto!", "info")
+	end, 400, 1)
 end)

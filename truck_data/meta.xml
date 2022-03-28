@@ -9,4 +9,6 @@
     <export function="getCustomData" type="server" />
     
     <export function="getCustomData" type="client" />
+
+    <export function="getAllCustomData" type="server" />
 </meta>

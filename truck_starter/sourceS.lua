@@ -2,8 +2,8 @@ local resourcesToStart = {
     "dgs",
     "truck_util",
     "truck_database",
-    "truck_core",
     "truck_data",
+    "truck_core",
     "truck_login",
     "truck_infobox"
 }

@@ -20,3 +20,7 @@ function getCustomData(element, key)
         return elementsData[element][key]
     end
 end
+
+function getAllCustomData()
+    return elementsData
+end
