@@ -13,12 +13,22 @@ addEventHandler("KSTRP:ToggleScoreboard", root, function(data)
 			killTimer(destroyTimer)
 		end
 
-		iprint(data)
-
 		dgsElements.roundedRectangleRender = dgs:dgsCreateRoundRect(10, false, tocolor(0, 0, 0, 190))
 		if not dgsElements.roundedRectangleRender then return end
 
-		dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 370)/2, (screenH - 451)/2, 370, 451, dgsElements.roundedRectangleRender, false)
+		local elementsInTableCount = 0
+  		for _ in pairs(data) do 
+  			elementsInTableCount = elementsInTableCount + 1 
+  		end
+
+  		local dgsElementsOffsetY = 0
+		if elementsInTableCount < 35 then 
+			dgsElementsOffsetY = dgsElementsOffsetY + 25*(elementsInTableCount-14)
+		else
+			dgsElementsOffsetY = 530
+		end
+
+		dgsElements.rectangleImage = dgs:dgsCreateImage((screenW - 370)/2, (screenH - 450 - dgsElementsOffsetY)/2, 370, 450 + dgsElementsOffsetY, dgsElements.roundedRectangleRender, false)
 
 		dgsElements.logoImage = dgs:dgsCreateImage(3, -1, 381, 64, "files/logo.png", false, dgsElements.rectangleImage)
 
@@ -29,7 +39,22 @@ addEventHandler("KSTRP:ToggleScoreboard", root, function(data)
 		dgs:dgsCreateLabel(5, 65, 200, 10, "Nick", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
 		dgs:dgsCreateLabel(105, 65, 200, 10, "Score", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
 		dgs:dgsCreateLabel(200, 65, 200, 10, "Rola", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
-	
+
+		local labelsOffsetY = 25
+		local currentID = 1
+
+		for indexPlayer, playerData in pairs(data) do
+			dgs:dgsCreateLabel(-70, 70+labelsOffsetY, 200, 10, currentID, false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+			dgs:dgsCreateLabel(5, 70+labelsOffsetY, 200, 10, getPlayerName(indexPlayer), false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+			dgs:dgsCreateLabel(105, 70+labelsOffsetY, 200, 10, playerData["plr:score"] or "N/A", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+			dgs:dgsCreateLabel(200, 70+labelsOffsetY, 200, 10, playerData["role"] or "N/A", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
+		
+			if currentID == 35 then return end
+
+			currentID = currentID + 1
+			labelsOffsetY = labelsOffsetY + 25
+		end
+
 		isScoreboardEnabled = true
 	else
 		dgs:dgsAlphaTo(dgsElements.rectangleImage, 0, "Linear", 50)

@@ -5,7 +5,8 @@ local resourcesToStart = {
     "truck_data",
     "truck_core",
     "truck_login",
-    "truck_infobox"
+    "truck_infobox",
+    "truck_scoreboard"
 }
 
 addEventHandler("onResourceStart", resourceRoot, function()
