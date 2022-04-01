@@ -32,7 +32,7 @@ addEventHandler("KSTRP:ToggleScoreboard", root, function(data)
 
 		dgsElements.logoImage = dgs:dgsCreateImage(3, -1, 381, 64, "files/logo.png", false, dgsElements.rectangleImage)
 
-		dgsElements.lineRender = dgs:dgsCreateLine((screenW - 450)/2, (screenH - 550)/2, 450, 550, false, dgsElements.rectangleImage, 2, tocolor(1, 111, 170))
+		dgsElements.lineRender = dgs:dgsCreateLine(735, 265, 735, 265, false, dgsElements.rectangleImage, 2, tocolor(1, 111, 170))
 		dgsElements.blueLine = dgs:dgsLineAddItem(dgsElements.lineRender, -735, -180, -366, -180)
 
 		dgs:dgsCreateLabel(-70, 65, 200, 10, "ID", false, dgsElements.rectangleImage, tocolor(170, 170, 170), 0.9, 0.9, _, _, _, "center")
