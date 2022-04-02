@@ -25,6 +25,8 @@ addEventHandler("KSTRP:TryToRegisterAccount", root, function(login, password, em
 	end
 end)
 
+local loggedPlayers = {}
+
 addEvent("KSTRP:TryToLogin", true)
 addEventHandler("KSTRP:TryToLogin", root, function(login, password)
 	if client and login and password then
@@ -32,14 +34,26 @@ addEventHandler("KSTRP:TryToLogin", root, function(login, password)
 		if accountData.uid ~= nil then
 			local passwordFromDatabase = accountData.password
 			if passwordVerify(password, passwordFromDatabase) then
-				if triggerClientEvent(client, "KSTRP:HideLoginGUI", client) then
-					triggerEvent("KSTRP:LoginSuccessful", client, accountData)
-			    end
+				if not loggedPlayers[login] or loggedPlayers[login] == nil then
+					if triggerClientEvent(client, "KSTRP:HideLoginGUI", client) then
+						triggerEvent("KSTRP:LoginSuccessful", client, accountData)
+
+						loggedPlayers[login] = true
+				    end 
+				else
+					exports.truck_infobox:showInfo(client, "Ktoś już jest zalogowany na tym koncie!", "error")
+				end	
 			else
 				exports.truck_infobox:showInfo(client, "Podane hasło jest nieprawidłowe.", "error")
 			end
 		else
 			exports.truck_infobox:showInfo(client, "Konto o podanym loginie nie istnieje!", "error")
 		end
+	end
+end)
+
+addEventHandler("onPlayerQuit", root, function()
+	if loggedPlayers[getPlayerName(source)] then
+		loggedPlayers[getPlayerName(source)] = nil
 	end
 end)

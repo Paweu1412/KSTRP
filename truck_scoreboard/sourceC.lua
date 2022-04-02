@@ -61,6 +61,8 @@ addEventHandler("KSTRP:ToggleScoreboard", root, function(data)
 
 		destroyTimer = setTimer(function()
 			destroyElement(dgsElements.roundedRectangleRender)
+			destroyElement(dgsElements.rectangleImage)
+
 			isScoreboardEnabled = false
 		end, 50, 1)
 	end
